@@ -73,8 +73,10 @@ class Messenger extends Adapter
             res.send "Error, wrong validation token"
 
         @robot.router.post "/webhook/", (req, res) =>
+            @robot.logger.info "Messenger webhook recieved"
             msgEvents = req.body.entry[0].messaging
             for msgEvent in msgEvents
+                @robot.logger.info "Event-> ", msgEvent
                 @_processMsg msgEvent
 
             res.send 200
